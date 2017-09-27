@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public TimeManager timeManager;
 
     public Renderer rend = new Renderer();
     public float MaxSpeed = 10;
@@ -131,6 +132,10 @@ public class PlayerController : MonoBehaviour
             canJumpVariable = false;
         }
 
+        if (Input.GetKeyDown("space"))
+        {
+            timeManager.bulletTime();
+        }
     }
 
     private bool onGround()
