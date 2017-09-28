@@ -7,8 +7,8 @@ public class PlayerController : MonoBehaviour
     public TimeManager timeManager;
 
     public Renderer rend = new Renderer();
-    public float MaxSpeed = 10;
-    public float Acceleration = 35;
+    public float MaxSpeed = 6;
+    public float Acceleration = 20;
     public float jumpSpeed = 8;
     public float jumpDuration;
 
@@ -59,14 +59,12 @@ public class PlayerController : MonoBehaviour
 
         bool isOnGround = onGround();
 
-        float vertical = Input.GetAxis("Vertical");
-
         if (isOnGround)
         {
             canDoubleJump = true;
         }
 
-        if (vertical > 0.1f)
+        if (Input.GetKeyDown("w") || Input.GetKeyDown("up"))
         {
             if (!keyPressDown)
             {
@@ -140,7 +138,7 @@ public class PlayerController : MonoBehaviour
 
     private bool onGround()
     {
-        float checkLength = 0.1f;
+        float checkLength = 0.5f;
         float colliderThreshold = 0.001f;
 
         Vector2 lineStart = new Vector2(this.transform.position.x, this.transform.position.y - rend.bounds.extents.y - colliderThreshold);
@@ -155,7 +153,7 @@ public class PlayerController : MonoBehaviour
     private bool onLeftWall()
     {
 
-        float checkLength = 0.1f;
+        float checkLength = 0.5f;
         float colliderThreshold = 0.01f;
 
         Vector2 lineStart = new Vector2(this.transform.position.x - rend.bounds.extents.x - colliderThreshold, this.transform.position.y);
@@ -170,7 +168,7 @@ public class PlayerController : MonoBehaviour
     private bool onRightWall()
     {
        
-        float checkLength = 0.1f;
+        float checkLength = 0.5f;
         float colliderThreshold = 0.01f;
 
         Vector2 lineStart = new Vector2(this.transform.position.x + rend.bounds.extents.x + colliderThreshold, this.transform.position.y);
