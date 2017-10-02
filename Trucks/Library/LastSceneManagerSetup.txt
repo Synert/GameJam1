@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/trucks.unity
+- path: Assets/Scenes/level editor demo.unity
   isLoaded: 1
   isActive: 1
