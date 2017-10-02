@@ -6,6 +6,7 @@ public class PauseMenu : MonoBehaviour
 {
 
     public GameObject PauseUI;
+    public TimeManager timeManager;
 
     private bool paused = false;
 
@@ -31,6 +32,21 @@ public class PauseMenu : MonoBehaviour
         {
             PauseUI.SetActive(false);
             Time.timeScale = 1;
+
+            if (paused)
+            {
+
+                PauseUI.SetActive(true);
+                timeManager.togglePause(true);
+            }
+
+            if (!paused)
+            {
+
+                PauseUI.SetActive(false);
+                timeManager.togglePause(false);
+            }
+
         }
 
     }
