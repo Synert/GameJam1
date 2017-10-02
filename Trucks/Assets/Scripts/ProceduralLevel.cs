@@ -20,7 +20,11 @@ public class ProceduralLevel : MonoBehaviour {
     double difference;
 
     float floor_width;
+
+    //where to spawn the floors from at first
     float start_x;
+
+    //this is just used for the new floor offset
     int floors_spawned;
 
     //time to continue using same parameters in ms
@@ -49,7 +53,7 @@ public class ProceduralLevel : MonoBehaviour {
 	void Update () {
         currentX = player.transform.position.x;
         //distance moved since we last placed a floor prefab
-        difference += Mathf.Abs(currentX - previousX);
+        difference += currentX - previousX;
         previousX = currentX;
 
         while(difference >= floor_width)
@@ -62,6 +66,8 @@ public class ProceduralLevel : MonoBehaviour {
 
             int attempt = 0;
 
+            //makes sure the difference in slope angle isn't too severe
+            //and smoothes the terrain out if it is
             while(Mathf.Abs(heightDiff - prevDiff) > 0.4f && mode != 6)
             {
                 testHeight = currentHeight;
@@ -70,6 +76,7 @@ public class ProceduralLevel : MonoBehaviour {
                 heightDiff = testHeight - prevHeight;
                 attempt++;
 
+                //prevent infinite loop and manually smooth
                 if(attempt > 5)
                 {
                     if (heightDiff > prevDiff)
@@ -98,11 +105,20 @@ public class ProceduralLevel : MonoBehaviour {
             difference -= floor_width;
             GameObject new_floor = (GameObject)Instantiate(floor);
             new_floor.transform.Translate(start_x + (floor_width * floors_spawned), currentHeight, 0.0f);
-            new_floor.transform.Rotate(0.0f, 0.0f, heightDiff * 30);
+            new_floor.GetComponent<Renderer>().sortingOrder = -1;
+            new_floor.transform.Rotate(0.0f, 0.0f, heightDiff * 33);
+            if (mode == 6)
+            {
+                new_floor.transform.Translate(0.0f, Mathf.Abs(upperBound) / 2, 0.0f);
+                new_floor.transform.localScale += new Vector3(Mathf.Abs(upperBound) / 1.6f, 0.0f, 0.0f);
+                new_floor.transform.Rotate(0.0f, 0.0f, 90.0f);
+            }
             new_floor.transform.localScale += new Vector3(Mathf.Abs(heightDiff), 0.0f, 0.0f);
         }
 
         modeTime -= 1000.0f * Time.deltaTime;
+
+        //choose a new generation mode
         if(modeTime <= 0.0f)
         {
             modeTime = Random.Range(1.0f, 5.0f) * 1000;
@@ -113,6 +129,7 @@ public class ProceduralLevel : MonoBehaviour {
                 heightDiff = 0.0f;
                 prevDiff = 0.0f;
             }
+
             switch(newMode)
             {
                 case 0:
@@ -142,16 +159,17 @@ public class ProceduralLevel : MonoBehaviour {
                     break;
                 case 5:
                     //solid uphill
-                    upperBound = 0.9f;
-                    lowerBound = 0.6f;
+                    upperBound = 0.7f;
+                    lowerBound = 0.4f;
                     break;
                 case 6:
                     //jump down
-                    upperBound = -1.6f * 3;
-                    lowerBound = -1.6f * 3;
+                    upperBound = -Random.Range(1.6f, 8.0f);
+                    lowerBound = upperBound;
                     modeTime = 100.0f;
                     break;
                 default:
+                    //default to flat
                     upperBound = 0.0f;
                     lowerBound = 0.0f;
                     break;
