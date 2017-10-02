@@ -9,32 +9,46 @@ public class TimeManager : MonoBehaviour
     public float cooldown = 0.0f;
     private bool isSlowMotion = false;
 
+    float oldTimeScale = 1.0f;
+
+    bool paused = false;
+
     void Update()
     {
-
-        if (isSlowMotion)
+        if (!paused)
         {
-            abilityDuration -= Time.unscaledDeltaTime;
-        }
 
-        if (!isSlowMotion)
-        {
-            cooldown -= Time.unscaledDeltaTime;
-            Debug.Log("Cooldown decreasing");
-        }
-
-        if (abilityDuration < 0f && isSlowMotion)
-        {
-           
-            Time.timeScale += (1f / slowDownLength) * Time.unscaledDeltaTime;
-            Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
-
-            if (Time.timeScale == 1f)
+            if (isSlowMotion)
             {
-                isSlowMotion = false;
-                cooldown = 10.0f;
-                Debug.Log("MAX COOLDOWN");
+                abilityDuration -= Time.unscaledDeltaTime;
             }
+
+            if (!isSlowMotion && cooldown > 0.0f)
+            {
+                cooldown -= Time.unscaledDeltaTime;
+                Debug.Log("Cooldown decreasing");
+
+                if (cooldown <= 0.0f)
+                {
+                    Debug.Log("Cooldown finished. Slowmo ready");
+                }
+            }
+
+            if (abilityDuration <= 0.0f && isSlowMotion)
+            {
+
+                Time.timeScale += (1f / slowDownLength) * Time.unscaledDeltaTime;
+                Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
+
+                if (Time.timeScale == 1f)
+                {
+                    isSlowMotion = false;
+                    cooldown = 10.0f;
+                    Debug.Log("MAX COOLDOWN");
+                }
+            }
+
+            oldTimeScale = Time.timeScale;
         }
     }
     public void bulletTime()
@@ -52,4 +66,23 @@ public class TimeManager : MonoBehaviour
             Debug.Log("ON COOLDOWN");
         }
     }
+
+    public void togglePause(bool isPaused)
+    {
+        if(isPaused)
+        {
+            Debug.Log("Paused");
+            paused = true;
+            oldTimeScale = Time.timeScale;
+            Time.timeScale = 0.0f;
+        }
+        if(!isPaused)
+        {
+            Debug.Log("Unpaused");
+            paused = false;
+            Time.timeScale = oldTimeScale;
+            Debug.Log(oldTimeScale);
+        }
+    }
+
 }
