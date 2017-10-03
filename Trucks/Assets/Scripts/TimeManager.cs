@@ -85,4 +85,10 @@ public class TimeManager : MonoBehaviour
         }
     }
 
+    public void restart()
+    {
+        oldTimeScale = 1.0f;
+        Time.timeScale = 1.0f;
+    }
+
 }

@@ -31,6 +31,7 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
         paused = false;
+        timeManager.togglePause(paused);
     }
     public void Quit()
     {
@@ -38,6 +39,9 @@ public class PauseMenu : MonoBehaviour
     }
     public void Restart()
     {
+        paused = false;
+        timeManager.togglePause(paused);
+        timeManager.restart();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     public void MainMenu()
