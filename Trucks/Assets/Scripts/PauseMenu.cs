@@ -20,21 +20,24 @@ public class PauseMenu : MonoBehaviour
         if (Input.GetButtonDown("Pause"))
         {
             paused = !paused;
-
-            if (paused)
-            {
-
-                PauseUI.SetActive(true);
-                timeManager.togglePause(true);
-            }
-
-            if (!paused)
-            {
-
-                PauseUI.SetActive(false);
-                timeManager.togglePause(false);
-            }
         }
+
+        if (paused)
+        {
+
+            PauseUI.SetActive(true);
+            //timeManager.togglePause(true);
+            Time.timeScale = 0.0f;
+        }
+
+        if (!paused)
+        {
+
+            PauseUI.SetActive(false);
+            //timeManager.togglePause(false);
+            Time.timeScale = 1.0f;
+        }
+        
     }
 
     public void Resume()
