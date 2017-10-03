@@ -40,7 +40,7 @@ public class MultiplayerManager : MonoBehaviour {
 						(Input.GetKeyDown ((KeyCode)System.Enum.Parse (typeof(KeyCode), data.activationKey2)) && !player1)) {
 						if (data.delay == 0) {
 							if (data.currentRefreshTime <= 0) {
-								data.activate (player.transform.position +
+								data.activate (player.transform.position + new Vector3(data.initialOffset, 0, 0) +
 								new Vector3 (Mathf.Abs (player.GetComponent<Rigidbody2D> ().velocity.x) * delay,
 									currentYPosition, data.layer));
 								data.refresh ();

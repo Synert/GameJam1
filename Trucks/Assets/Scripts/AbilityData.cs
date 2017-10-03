@@ -16,10 +16,17 @@ public class AbilityData : MonoBehaviour {
 	public float layer;
 	public LayerMask layerMask;
 
+	public Vector3 startPos1;
+	public Vector3 hitPos1;
+
 	public void minusDeltaTime(float time) {
 		if (currentRefreshTime > 0) {
 			currentRefreshTime -= time;
 		}
+	}
+
+	void Update() {
+		Debug.DrawLine (startPos1, hitPos1, Color.red);
 	}
 
 	public void refresh() {

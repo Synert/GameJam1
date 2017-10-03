@@ -5,32 +5,20 @@ using UnityEngine;
 public class CameraScript : MonoBehaviour {
 
     public GameObject player;
-
-    Vector3 oldPos;
-
-	// Use this for initialization
-	void Start () {
-		
-	}
+	public Vector2 vel;
+	public float velChange;
 	
 	// Update is called once per frame
 	void Update () {
-        //get the player's current position
-        Vector3 newPos = player.transform.position;
-        //and then their movement
-        Vector3 posChange = newPos - oldPos;
 
         //move the camera to this position
         //transform.Translate(posChange / 5);
 
-        //float xChange = -(transform.position.x / ((transform.position.x) + Screen.width / 2) - player.transform.position.x);
+		vel.x = player.transform.position.x - transform.position.x;
+		vel.y = player.transform.position.y - transform.position.y;
 
-        //transform.position += new Vector3(xChange, player.transform.position.y, player.transform.position.z) * Time.deltaTime;
+		vel *= velChange;
 
-        Vector3 posDif = newPos - transform.position;
-
-        transform.Translate(posDif);
-
-        oldPos = newPos;
+		GetComponent<Rigidbody2D> ().velocity = vel;
 	}
 }
