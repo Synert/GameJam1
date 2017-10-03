@@ -73,14 +73,15 @@ public class TimeManager : MonoBehaviour
         {
             Debug.Log("Paused");
             paused = true;
-            oldTimeScale = Time.timeScale;
+            //oldTimeScale = Time.timeScale;
             Time.timeScale = 0.0f;
         }
         if(!isPaused)
         {
             Debug.Log("Unpaused");
             paused = false;
-            Time.timeScale = oldTimeScale;
+            //Time.timeScale = oldTimeScale;
+            Time.timeScale = 1.0f;
             Debug.Log(oldTimeScale);
         }
     }

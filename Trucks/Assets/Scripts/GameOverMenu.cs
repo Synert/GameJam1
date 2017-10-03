@@ -6,19 +6,22 @@ public class GameOverMenu : MonoBehaviour
 {
     public GameObject GameOverUI;
 
-    private bool gameover;
+    public bool gameover = false;
 
     void Start()
     {
         GameOverUI.SetActive(false);
-        gameover = false;
     }
 
     void Update()
     {
-        if(gameover == true)
+        if (gameover == true)
         {
             Time.timeScale = 0;
+        }
+        if (gameover == false)
+        {
+            Time.timeScale = 1;
         }
     }
 
@@ -34,6 +37,7 @@ public class GameOverMenu : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        gameover = false;
     }
     public void MainMenu()
     {
