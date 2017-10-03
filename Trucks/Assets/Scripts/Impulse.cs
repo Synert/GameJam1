@@ -11,7 +11,9 @@ public class Impulse : AbilityData {
 	{
 		Rigidbody2D[] all = GameObject.FindObjectsOfType<Rigidbody2D> ();
 		foreach (Rigidbody2D rig in all) {
-			rig.AddForce (direction * force);
+			if (rig.transform.tag != "Player") {
+				rig.AddForce (direction * force);
+			}
 		}
 	}
 }

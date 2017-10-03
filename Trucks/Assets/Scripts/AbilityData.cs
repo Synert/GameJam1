@@ -6,8 +6,7 @@ using UnityEngine;
 public class AbilityData : MonoBehaviour {
 
 	public Sprite UISprite; 
-	public string activationKey1;
-	public string activationKey2;
+	public string activationKey;
 	public float currentRefreshTime;
 	public float refreshTime;
 	public string description;
