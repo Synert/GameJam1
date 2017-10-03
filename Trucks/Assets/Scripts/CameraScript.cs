@@ -29,6 +29,8 @@ public class CameraScript : MonoBehaviour {
 
         Vector3 posDif = newPos - transform.position;
 
+        posDif.z = 0.0f;
+
         transform.Translate(posDif);
 
         oldPos = newPos;
