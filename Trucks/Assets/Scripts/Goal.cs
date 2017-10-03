@@ -9,7 +9,7 @@ public class Goal : MonoBehaviour
     {
         if (other.tag == "Player")
         { 
-            SceneManager.LoadScene("EndScreen");
+            SceneManager.LoadScene("GoalScreen");
             return;
         }
     }

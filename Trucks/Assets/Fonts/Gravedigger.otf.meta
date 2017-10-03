@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: d6996844ba7983a42a43ff967b61c49e
+timeCreated: 1507065924
+licenseType: Pro
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Gravedigger
+  fontNames:
+  - Gravedigger
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

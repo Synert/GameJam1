@@ -10,16 +10,16 @@ public class GameOverMenu : MonoBehaviour
 
     void Start()
     {
-        GameOverUI.SetActive(false);
+        
         gameover = false;
     }
 
     void Update()
     {
-        if(gameover == true)
+        /*if(gameover == true)
         {
             Time.timeScale = 0;
-        }
+        }*/
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -27,7 +27,9 @@ public class GameOverMenu : MonoBehaviour
         if (other.tag == "Player")
         {
             gameover = true;
-            GameOverUI.SetActive(true);
+           
+			SceneManager.LoadScene("EndScreen");
+			return;
         }
     }
 
