@@ -12,12 +12,17 @@ public class ProceduralLevel : MonoBehaviour {
     public GameObject obstacle_1;
     public GameObject obstacle_2;
 
+    public GameObject truckF;
+
     public GameObject player;
 
     float currentHeight;
     float currentX;
     float previousX;
     double difference;
+
+    int[] trucks_on_screen = new int[3];
+    float[] trucks_expected = new float[3];
 
     float floor_width;
 
@@ -40,23 +45,85 @@ public class ProceduralLevel : MonoBehaviour {
     void Start () {
         currentHeight = 0.0f;
         previousX = 0.0f;
-        difference = 50.0f;
-        start_x = -20.0f;
+        difference = 120.0f;
+        start_x = -50.0f;
         floor_width = floor.GetComponent<Renderer>().bounds.size.x;
         floors_spawned = 0;
         modeTime = 1000.0f;
         upperBound = 0.0f;
         lowerBound = 0.0f;
+
+        //truck spawning
+        for (int i = 0; i < 3; i++)
+        {
+            trucks_expected[i] = 0.0f;
+            trucks_on_screen[i] = 0;
+        }
+
+        trucks_on_screen[1] = 1;
     }
 	
 	// Update is called once per frame
 	void Update () {
+        GenerateFloor();
+        GenerateTruck();
+    }
+
+    public void UpdateTruckCount(int side, int add)
+    {
+        trucks_on_screen[side] += add;
+    }
+
+    void GenerateTruck()
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            if(trucks_expected[i] > 0.0f)
+            {
+                trucks_expected[i] -= Time.deltaTime;
+            }
+        }
+
+        if(trucks_on_screen[0] < 3 && trucks_expected[0] < 3.0f)
+        {
+            GameObject new_truck = (GameObject)Instantiate(truckF);
+
+            new_truck.transform.position = new Vector3(player.transform.position.x - 25.0f - Random.Range(0.0f, 25.0f), player.transform.position.y + 10.0f + Random.Range(2.0f, 8.0f));
+            trucks_expected[0] += 5.0f;
+
+            new_truck.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(100.0f, 500.0f), 0.0f));
+        }
+
+        //center- does the player have a truck under them?
+        if (trucks_on_screen[1] < 1 && trucks_expected[1] < 1.0f)
+        {
+            GameObject new_truck = (GameObject)Instantiate(truckF);
+
+            new_truck.transform.position = new Vector3(player.transform.position.x + Random.Range(-25.0f, 25.0f), player.transform.position.y + 20.0f + Random.Range(-5.0f, 5.0f));
+            trucks_expected[1] += 5.0f;
+
+            new_truck.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(0.0f, 250.0f), 0.0f));
+        }
+
+        if (trucks_on_screen[2] < 2 && trucks_expected[2] < 2.0f)
+        {
+            GameObject new_truck = (GameObject)Instantiate(truckF);
+
+            new_truck.transform.position = new Vector3(player.transform.position.x + 30.0f + Random.Range(0.0f, 25.0f), currentHeight + Random.Range(10.0f, 25.0f));
+            trucks_expected[2] += 5.0f;
+
+            new_truck.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-100.0f, 0.0f), 0.0f));
+        }
+    }
+
+    void GenerateFloor()
+    {
         currentX = player.transform.position.x;
         //distance moved since we last placed a floor prefab
         difference += currentX - previousX;
         previousX = currentX;
 
-        while(difference >= floor_width)
+        while (difference >= floor_width)
         {
             float prevHeight = currentHeight;
             float testHeight = currentHeight;
@@ -68,7 +135,7 @@ public class ProceduralLevel : MonoBehaviour {
 
             //makes sure the difference in slope angle isn't too severe
             //and smoothes the terrain out if it is
-            while(Mathf.Abs(heightDiff - prevDiff) > 0.4f && mode != 6)
+            while (Mathf.Abs(heightDiff - prevDiff) > 0.4f && mode != 6)
             {
                 testHeight = currentHeight;
                 testHeight += Random.Range(lowerBound, upperBound);
@@ -77,7 +144,7 @@ public class ProceduralLevel : MonoBehaviour {
                 attempt++;
 
                 //prevent infinite loop and manually smooth
-                if(attempt > 5)
+                if (attempt > 5)
                 {
                     if (heightDiff > prevDiff)
                     {
@@ -92,7 +159,7 @@ public class ProceduralLevel : MonoBehaviour {
                 }
             }
 
-            if(mode == 6)
+            if (mode == 6)
             {
                 heightDiff = 0.0f;
             }
@@ -119,18 +186,18 @@ public class ProceduralLevel : MonoBehaviour {
         modeTime -= 1000.0f * Time.deltaTime;
 
         //choose a new generation mode
-        if(modeTime <= 0.0f)
+        if (modeTime <= 0.0f)
         {
             modeTime = Random.Range(1.0f, 5.0f) * 1000;
             int newMode = Random.Range(0, 7);
 
-            if(mode == 6)
+            if (mode == 6)
             {
                 heightDiff = 0.0f;
                 prevDiff = 0.0f;
             }
 
-            switch(newMode)
+            switch (newMode)
             {
                 case 0:
                     //flat ground
