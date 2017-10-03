@@ -40,10 +40,10 @@ public class PlayerController : MonoBehaviour
             {
                 GetComponent<Rigidbody2D>().AddForce(new Vector2(-this.Acceleration, 0.0f));
             }
-            else
-            {
-                GetComponent<Rigidbody2D>().velocity = new Vector2(-this.MaxSpeed, GetComponent<Rigidbody2D>().velocity.y);
-            }
+            //else
+            //{
+            //    GetComponent<Rigidbody2D>().velocity = new Vector2(-this.MaxSpeed, GetComponent<Rigidbody2D>().velocity.y);
+            //}
         }
         else if(horizontal > 0.1f)
         {
@@ -51,10 +51,10 @@ public class PlayerController : MonoBehaviour
             {
                 GetComponent<Rigidbody2D>().AddForce(new Vector2(this.Acceleration, 0.0f));
             }
-            else
-            {
-                GetComponent<Rigidbody2D>().velocity = new Vector2(this.MaxSpeed, GetComponent<Rigidbody2D>().velocity.y);
-            }
+            //else
+            //{
+            //    GetComponent<Rigidbody2D>().velocity = new Vector2(this.MaxSpeed, GetComponent<Rigidbody2D>().velocity.y);
+            //}
         }
 
         bool isOnGround = onGround();
