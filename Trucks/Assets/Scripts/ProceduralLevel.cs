@@ -89,9 +89,9 @@ public class ProceduralLevel : MonoBehaviour {
             GameObject new_truck = (GameObject)Instantiate(truckF);
 
             new_truck.transform.position = new Vector3(player.transform.position.x - 25.0f - Random.Range(0.0f, 25.0f), player.transform.position.y + 10.0f + Random.Range(2.0f, 8.0f));
-            trucks_expected[0] += 5.0f;
+            trucks_expected[0] += 3.5f;
 
-            new_truck.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(100.0f, 500.0f), 0.0f));
+            new_truck.GetComponentInChildren<Rigidbody2D>().AddForce(new Vector2(Random.Range(5000.0f, 10000.0f), -500.0f));
         }
 
         //center- does the player have a truck under them?
@@ -100,19 +100,24 @@ public class ProceduralLevel : MonoBehaviour {
             GameObject new_truck = (GameObject)Instantiate(truckF);
 
             new_truck.transform.position = new Vector3(player.transform.position.x + Random.Range(-25.0f, 25.0f), player.transform.position.y + 20.0f + Random.Range(-5.0f, 5.0f));
-            trucks_expected[1] += 5.0f;
+            trucks_expected[1] += 2.0f;
 
-            new_truck.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(0.0f, 250.0f), 0.0f));
+            new_truck.GetComponentInChildren<Rigidbody2D>().AddForce(new Vector2(Random.Range(2500.0f, 5000.0f), -500.0f));
         }
 
         if (trucks_on_screen[2] < 2 && trucks_expected[2] < 2.0f)
         {
             GameObject new_truck = (GameObject)Instantiate(truckF);
 
-            new_truck.transform.position = new Vector3(player.transform.position.x + 30.0f + Random.Range(0.0f, 25.0f), currentHeight + Random.Range(10.0f, 25.0f));
-            trucks_expected[2] += 5.0f;
+            float tempHeight = currentHeight;
+            while(tempHeight < player.transform.position.y - 10.0f)
+            {
+                tempHeight += 10.0f;
+            }
+            new_truck.transform.position = new Vector3(player.transform.position.x + 30.0f + Random.Range(0.0f, 25.0f), tempHeight + Random.Range(10.0f, 25.0f));
+            trucks_expected[2] += 2.5f;
 
-            new_truck.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-100.0f, 0.0f), 0.0f));
+            new_truck.GetComponentInChildren<Rigidbody2D>().AddForce(new Vector2(Random.Range(-2500.0f, -1000.0f), -500.0f));
         }
     }
 
