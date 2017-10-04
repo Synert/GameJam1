@@ -87,7 +87,8 @@ public class ProceduralLevel : MonoBehaviour {
 
         if(trucks_on_screen[0] < 3 && trucks_expected[0] < 3.0f)
         {
-            GameObject new_truck = (GameObject)Instantiate(truckF);
+			GameObject new_truck = (GameObject)Instantiate(truckF);
+			new_truck.GetComponent<DespawnScript> ().multiplayer = true;
 
             new_truck.transform.position = new Vector3(player.transform.position.x - 25.0f - Random.Range(0.0f, 25.0f), player.transform.position.y + 10.0f + Random.Range(2.0f, 8.0f));
             trucks_expected[0] += 3.5f;
@@ -98,7 +99,8 @@ public class ProceduralLevel : MonoBehaviour {
         //center- does the player have a truck under them?
         if (trucks_on_screen[1] < 1 && trucks_expected[1] < 1.0f)
         {
-            GameObject new_truck = (GameObject)Instantiate(truckF);
+			GameObject new_truck = (GameObject)Instantiate(truckF);
+			new_truck.GetComponent<DespawnScript> ().multiplayer = true;
 
             new_truck.transform.position = new Vector3(player.transform.position.x + Random.Range(-25.0f, 25.0f), player.transform.position.y + 20.0f + Random.Range(-5.0f, 5.0f));
             trucks_expected[1] += 2.0f;
@@ -108,7 +110,8 @@ public class ProceduralLevel : MonoBehaviour {
 
         if (trucks_on_screen[2] < 2 && trucks_expected[2] < 2.0f)
         {
-            GameObject new_truck = (GameObject)Instantiate(truckF);
+			GameObject new_truck = (GameObject)Instantiate(truckF);
+			new_truck.GetComponent<DespawnScript> ().multiplayer = true;
 
             float tempHeight = currentHeight;
             while(tempHeight < player.transform.position.y - 10.0f)
@@ -178,6 +181,7 @@ public class ProceduralLevel : MonoBehaviour {
             difference -= floor_width;
             GameObject new_floor = (GameObject)Instantiate(floor);
 			new_floor.GetComponent<GameOverMenu> ().multiplayer = true;
+			new_floor.GetComponent<DespawnScript> ().multiplayer = true;
             new_floor.transform.Translate(start_x + (floor_width * floors_spawned), currentHeight, 0.0f);
             new_floor.GetComponent<Renderer>().sortingOrder = -1;
             new_floor.transform.Rotate(0.0f, 0.0f, heightDiff * 33);

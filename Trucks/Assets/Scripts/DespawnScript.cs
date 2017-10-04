@@ -7,6 +7,7 @@ public class DespawnScript : MonoBehaviour {
     GameObject player;
     GameObject m_child;
     float despawnTimer;
+	public bool multiplayer;
 
     // Use this for initialization
     void Start()
@@ -39,8 +40,13 @@ public class DespawnScript : MonoBehaviour {
             distance = transform.position.x - player.transform.position.x;
         }
 
+		float multiply = 1;
+		if (multiplayer) {
+			multiply = 3;
+		}
+
         //anything over 200 in front of you is probably a runaway truck that's gone off the terrain
-        if(distance < -50.0f || distance > 250.0f || y_distance > 250.0f)
+		if(distance < -50.0f * multiply || distance > 250.0f * multiply || y_distance > 250.0f * multiply)
         {
             despawnTimer += Time.deltaTime;
             if (despawnTimer > 2.0f)
