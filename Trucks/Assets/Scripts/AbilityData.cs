@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class AbilityData : MonoBehaviour {
 
 	public Sprite UISprite; 
-	public Rect image;
+	public Sprite keySprite; 
+	public Image keyImage;
+	public Image objImage;
+	public Text textVar;
 	public string activationKey;
 	public float currentRefreshTime;
 	public float refreshTime;
@@ -22,8 +26,29 @@ public class AbilityData : MonoBehaviour {
 	public Vector3 hitPos1;
 
 	public void minusDeltaTime(float time) {
+		textVar.text = "Cost: " + (pointCost - pointGain).ToString ();
 		if (currentRefreshTime > 0) {
 			currentRefreshTime -= time;
+			float percentage = currentRefreshTime / refreshTime;
+			if (keyImage != null) {
+				keyImage.color = new Color (255, 255, 255, 1 - percentage);
+			}
+			if (objImage != null) {
+				objImage.color = new Color (255, 255, 255, 1 - percentage);
+			}
+			if (textVar != null) {
+				textVar.color = new Color (255, 255, 255, 1 - percentage);
+			}
+		} else {
+			if (keyImage != null) {
+				keyImage.color = new Color (255, 255, 255, 1);
+			}
+			if (objImage != null) {
+				objImage.color = new Color (255, 255, 255, 1);
+			}
+			if (textVar != null) {
+				textVar.color = new Color (255, 255, 255, 1);
+			}
 		}
 	}
 

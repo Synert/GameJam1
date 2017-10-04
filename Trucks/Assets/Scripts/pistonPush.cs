@@ -36,7 +36,6 @@ public class pistonPush : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (currentDelay <= 0) {
-            Debug.Log(GetComponent<Rigidbody2D>().velocity);
 			if (currentDist >= 0 && !toggleAdd) {
                 GetComponent<Rigidbody2D>().velocity = transform.up * timesPushForward;
                 currentDist -= Time.deltaTime * timesPushForward;

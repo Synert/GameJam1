@@ -12,6 +12,7 @@ public class PauseMenu : MonoBehaviour
 
     void Start()
     {
+		Debug.Log (gameObject.name);
         PauseUI.SetActive(false);
     }
 
@@ -46,6 +47,7 @@ public class PauseMenu : MonoBehaviour
     }
     public void MainMenu()
     {
-        SceneManager.LoadScene("EndScreen");
+		Time.timeScale = 1;
+        SceneManager.LoadScene("start menu");
     }
 }

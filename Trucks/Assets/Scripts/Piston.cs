@@ -26,8 +26,5 @@ public class Piston : AbilityData {
 		startPos1 = pos;
 
 		GameObject spawned = GameObject.Instantiate (gameObject, hit.transform.position, hit.collider.transform.rotation);
-
-		//deal with positioning
-		//spawned.transform.Translate ((spawned.transform.up * spawned.transform.localScale.y) * GetComponent<SpriteRenderer>().sprite.bounds.size.y/2);
 	}
 }

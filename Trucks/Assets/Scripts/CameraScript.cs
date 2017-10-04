@@ -10,8 +10,6 @@ public class CameraScript : MonoBehaviour {
 	public float onGroundIn = 0.5f;
 	public float onGroundOut = 1;
 
-    Vector3 oldPos;
-
 	// Use this for initialization
 	void Start () {
 		
@@ -42,8 +40,8 @@ public class CameraScript : MonoBehaviour {
 		zoomAim *= onGround;
 		Camera.main.orthographicSize += (zoomAim * Time.deltaTime) - (10 * Time.deltaTime);
 
-		if (Camera.main.orthographicSize < 10) {
-			Camera.main.orthographicSize = 10;
+		if (Camera.main.orthographicSize < 8) {
+			Camera.main.orthographicSize = 8;
 		}
 
 		if (Camera.main.orthographicSize > 15) {
@@ -52,7 +50,5 @@ public class CameraScript : MonoBehaviour {
 
         posDif.z = 0.0f;
         transform.Translate(posDif);
-
-        oldPos = newPos;
 	}
 }

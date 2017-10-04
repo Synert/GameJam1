@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class MultiplayerDetector : MonoBehaviour {
 
+	public bool forceGrab = false;
+
 	// Use this for initialization
 	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+		if (forceGrab) {
+			MultiplayerManager[] temp = GameObject.FindObjectsOfType<MultiplayerManager> ();
+			foreach (MultiplayerManager t in temp) {
+				t.grab ();
+			}
+		}
 	}
 }
