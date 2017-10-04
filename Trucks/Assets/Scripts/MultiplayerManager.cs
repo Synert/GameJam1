@@ -96,7 +96,9 @@ public class MultiplayerManager : MonoBehaviour {
 			} else if (player2 && player2Start) {
 				player2Score += Time.deltaTime;
 			}
-			Score.text = "Points: " + points.ToString () + "\n" + "Delay: " + delay.ToString();
+			if (Score != null) {
+				Score.text = "Points: " + points.ToString () + "\n" + "Delay: " + delay.ToString ();
+			}
 			for (int a = 0; a < abilities.Count; a++) {
 				AbilityData data = abilities [a];
 				data.minusDeltaTime (Time.deltaTime);

@@ -26,7 +26,12 @@ public class AbilityData : MonoBehaviour {
 	public Vector3 hitPos1;
 
 	public void minusDeltaTime(float time) {
-		textVar.text = "Cost: " + (pointCost - pointGain).ToString ();
+		if (pointCost < pointGain) {
+			textVar.text = "Gain: " + (pointGain - pointCost).ToString ();
+		}
+		else if (pointCost >= pointGain) {
+			textVar.text = "Cost: " + (pointCost - pointGain).ToString ();
+		}
 		if (currentRefreshTime > 0) {
 			currentRefreshTime -= time;
 			float percentage = currentRefreshTime / refreshTime;
