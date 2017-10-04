@@ -6,9 +6,12 @@ using UnityEngine;
 public class AbilityData : MonoBehaviour {
 
 	public Sprite UISprite; 
+	public Rect image;
 	public string activationKey;
 	public float currentRefreshTime;
 	public float refreshTime;
+	public float pointGain;
+	public float pointCost;
 	public string description;
 	public float initialOffset;
 	public float delay;
@@ -30,6 +33,10 @@ public class AbilityData : MonoBehaviour {
 
 	public void refresh() {
 		currentRefreshTime = refreshTime;
+	}
+
+	public void clearRefresh() {
+		currentRefreshTime = 0;
 	}
 
 	public virtual void spawn(Vector3 pos) {

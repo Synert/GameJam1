@@ -7,6 +7,7 @@ public class GameOverMenu : MonoBehaviour
     public GameObject GameOverUI;
 
     private bool gameover;
+	public bool multiplayer = false;
 
     void Start()
     {
@@ -27,10 +28,15 @@ public class GameOverMenu : MonoBehaviour
 		
         if (other.tag == "Player")
         {
-            gameover = true;
+			if (!multiplayer) {
+				gameover = true;
            
-			SceneManager.LoadScene("EndScreen");
-			return;
+				SceneManager.LoadScene ("EndScreen");
+			} else {
+				SceneManager.LoadScene ("MultiplayerEndScreen");
+			}
+
+			Time.timeScale = 1;
         }
     }
 

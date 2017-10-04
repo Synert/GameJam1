@@ -40,7 +40,7 @@ public class DespawnScript : MonoBehaviour {
         }
 
         //anything over 200 in front of you is probably a runaway truck that's gone off the terrain
-        if(distance < -50.0f || distance > 150.0f || y_distance > 100.0f)
+        if(distance < -50.0f || distance > 250.0f || y_distance > 250.0f)
         {
             despawnTimer += Time.deltaTime;
             if (despawnTimer > 2.0f)

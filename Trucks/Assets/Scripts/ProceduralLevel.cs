@@ -45,7 +45,8 @@ public class ProceduralLevel : MonoBehaviour {
     void Start () {
         currentHeight = 0.0f;
         previousX = 0.0f;
-        difference = 120.0f;
+		//distance from player capable of spawning
+        difference = 220.0f;
         start_x = -50.0f;
         floor_width = floor.GetComponent<Renderer>().bounds.size.x;
         floors_spawned = 0;
@@ -176,6 +177,7 @@ public class ProceduralLevel : MonoBehaviour {
             floors_spawned++;
             difference -= floor_width;
             GameObject new_floor = (GameObject)Instantiate(floor);
+			new_floor.GetComponent<GameOverMenu> ().multiplayer = true;
             new_floor.transform.Translate(start_x + (floor_width * floors_spawned), currentHeight, 0.0f);
             new_floor.GetComponent<Renderer>().sortingOrder = -1;
             new_floor.transform.Rotate(0.0f, 0.0f, heightDiff * 33);

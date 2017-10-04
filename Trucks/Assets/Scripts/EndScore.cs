@@ -7,11 +7,11 @@ public class EndScore : MonoBehaviour
 {
     public ScoreTimer scoreTimer;
 
-    Text score;
+    //Text score;
 
     void Start ()
     {
-        score.text = "Your Final Score is: " + scoreTimer.scoreTime;
+        //score.text = "Your Final Score is: " + scoreTimer.scoreTime;
     }
 	
 	// Update is called once per frame
