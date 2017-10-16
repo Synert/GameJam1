@@ -109,7 +109,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 495}
   m_MaxSize: {x: 14004, y: 14045}
   vertical: 0
-  controlID: 8022
+  controlID: 15196
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 495}
   m_MaxSize: {x: 10002, y: 14045}
   vertical: 1
-  controlID: 8023
+  controlID: 15197
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 224}
   m_MaxSize: {x: 8006, y: 4024}
   vertical: 0
-  controlID: 8024
+  controlID: 15198
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -367,9 +367,9 @@ MonoBehaviour:
     height: 339
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: a4270000
+    m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0a3ffdff7648fdff9a49fdff6c55fdff3c7ffdff4886fdff2a9afdff94bffdff0cf1fdffa604feff8837feff1846feff5872feffac87feffe4fbffff00000000802800000c390000ea420000
+    m_ExpandedIDs: f67dfdff768bfdffd28cfdff2c8ffdff189bfdffa29ffdffa8a3fdff6ea8fdff5afdfdff8662feff3a84feff3c84feff588afeff7615ffff7815ffffe4fbffff000000006c2800008228000096280000bc280000c62800001c340000423400005434000082340000a2340000623f0000ca3f0000f03f0000304000005040000078440000f448000048490000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -388,7 +388,7 @@ MonoBehaviour:
       m_ClientGUIView: {fileID: 8}
     m_SearchString: 
   m_ExpandedScenes:
-  - Level1
+  - start menu
   m_CurrenRootInstanceID: 0
   m_Locked: 0
   m_CurrentSortingName: TransformSorting
@@ -419,14 +419,14 @@ MonoBehaviour:
     width: 817
     height: 339
   m_SceneLighting: 1
-  lastFramingTime: 7313.62369509389
+  lastFramingTime: 3130.084437723973
   m_2DMode: 1
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -6.3363676, y: -1.2017305, z: 0}
+    m_Target: {x: 0, y: 0, z: 0}
     speed: 2
-    m_Value: {x: -6.3363676, y: -1.2017305, z: 0}
+    m_Value: {x: 0, y: 0, z: 0}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -453,9 +453,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 6.2461166
+    m_Target: 14.722734
     speed: 2
-    m_Value: 6.2461166
+    m_Value: 14.722734
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -582,18 +582,18 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Scenes
+    - Assets/Scripts
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Scripts
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Josep\OneDrive\Documents\GitHub\CGD-FirstGameJam\GameJam1\Trucks
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: be250000
-    m_LastClickedID: 9662
+    m_SelectedIDs: 56270000
+    m_LastClickedID: 10070
     m_ExpandedIDs: 00000000f8240000be25000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -649,7 +649,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c623000000000000382500001c280000f62600004ec9010066270000b8270000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
