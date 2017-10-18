@@ -19,9 +19,25 @@ public class DontDestroy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level4")) 
+		if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level1")) 
 		{
 			Destroy (gameObject);
 		}
-	}
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2"))
+        {
+            Destroy(gameObject);
+        }
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level3"))
+        {
+            Destroy(gameObject);
+        }
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level4"))
+        {
+            Destroy(gameObject);
+        }
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("procedural"))
+        {
+            Destroy(gameObject);
+        }
+    }
 }
