@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TruckScript : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class TruckScript : MonoBehaviour
     WheelJoint2D[] wheels;
 
     JointMotor2D newMotor;
+    string[] trailerText = { "HEAVY LOAD", "FRAGILE", "RATE MY DRIVING", "GRIZZLED GAMES", "IS THAT A PLANE", "SURPRISE",
+    "FIRST CLASS", "", "DO NOT FLIP" };
 
     public float startSpeed = 2500.0f;
     public float acc = 10.0f;
@@ -17,7 +20,7 @@ public class TruckScript : MonoBehaviour
     void Start()
     {
         wheels = GetComponentsInChildren<WheelJoint2D>();
-
+        GetComponentInChildren<Text>().text = trailerText[Random.Range(0, trailerText.Length)];
         currentSpeed = startSpeed;
     }
 

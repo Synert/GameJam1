@@ -200,9 +200,9 @@ public class ProceduralLevel : MonoBehaviour {
         if (modeTime <= 0.0f)
         {
             modeTime = Random.Range(1.0f, 5.0f) * 1000;
-            int newMode = Random.Range(0, 7);
+            int newMode = Random.Range(0, 5);
 
-            if (mode == 6)
+            if (mode == 4)
             {
                 heightDiff = 0.0f;
                 prevDiff = 0.0f;
@@ -231,16 +231,6 @@ public class ProceduralLevel : MonoBehaviour {
                     lowerBound = -Random.Range(1.0f, 1.6f);
                     break;
                 case 4:
-                    //random uphill
-                    upperBound = Random.Range(0.2f, 0.6f);
-                    lowerBound = Random.Range(-0.1f, 0.2f);
-                    break;
-                case 5:
-                    //solid uphill
-                    upperBound = 0.7f;
-                    lowerBound = 0.4f;
-                    break;
-                case 6:
                     //jump down
                     upperBound = -Random.Range(1.6f, 8.0f);
                     lowerBound = upperBound;

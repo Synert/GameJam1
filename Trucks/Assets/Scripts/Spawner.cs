@@ -19,7 +19,11 @@ public class Spawner : MonoBehaviour {
     void Spawn()
     {
         int truckArray = Random.Range(0, Trucks.Length);
-        Instantiate(Trucks[truckArray], truckPosition, Quaternion.identity);
+        GameObject newTruck = Instantiate(Trucks[truckArray], truckPosition, Quaternion.identity);
+        if(newTruck.name == "TruckB(Clone)")
+        {
+            newTruck.transform.Translate(new Vector3(0.0f, 0.0f, 2.0f));
+        }
     }
 
 
