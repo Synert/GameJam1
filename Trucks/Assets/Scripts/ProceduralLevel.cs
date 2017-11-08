@@ -34,23 +34,31 @@ public class ProceduralLevel : MonoBehaviour {
 
     //time to continue using same parameters in ms
     float modeTime;
-    int mode;
+    int mode = 1;
     float upperBound;
     float lowerBound;
 
     float heightDiff;
     float prevDiff;
 
+    public GameObject empty;
+    public Material lineMaterial;
+    const int thickness = 80;
+    LineRenderer[] m_line = new LineRenderer[thickness];
+    int curIndex = 0;
+    Vector3 prevPos;
+    Vector3 prevPrevPos;
+
     // Use this for initialization
     void Start () {
         currentHeight = 0.0f;
         previousX = 0.0f;
 		//distance from player capable of spawning
-        difference = 220.0f;
+        difference = 120.0f;
         start_x = -50.0f;
         floor_width = floor.GetComponent<Renderer>().bounds.size.x;
         floors_spawned = 0;
-        modeTime = 1000.0f;
+        modeTime = 10.0f;
         upperBound = 0.0f;
         lowerBound = 0.0f;
 
@@ -62,6 +70,20 @@ public class ProceduralLevel : MonoBehaviour {
         }
 
         trucks_on_screen[1] = 1;
+
+        lineMaterial.SetTextureScale("_MainTex", new Vector2(3f, 3f));
+
+        for(int i = 0; i < thickness; i++)
+        {
+            GameObject newEmpty = Instantiate(empty);
+            m_line[i] = newEmpty.AddComponent<LineRenderer>();
+            m_line[i].positionCount = 0;
+            m_line[i].material = lineMaterial;
+            Color temp = new Color(0.75f - i * 0.05f, 0.9f - i * 0.025f, 0.5f - i * 0.05f);
+            m_line[i].SetColors(temp, temp);
+            m_line[i].widthMultiplier = 1f;
+            m_line[i].textureMode = LineTextureMode.Tile;
+        }
     }
 	
 	// Update is called once per frame
@@ -85,15 +107,27 @@ public class ProceduralLevel : MonoBehaviour {
             }
         }
 
-        if(trucks_on_screen[0] < 3 && trucks_expected[0] < 3.0f)
+        if(trucks_on_screen[0] < 2 && trucks_expected[0] < 8.0f)
         {
-			GameObject new_truck = (GameObject)Instantiate(truckF);
+            //get height of floor at left
+            float randPos = player.transform.position.x - 25.0f - Random.Range(0.0f, 25.0f);
+
+            RaycastHit2D hit = Physics2D.Raycast(new Vector2(randPos, player.transform.position.y + 75.0f), -Vector2.up, 150.0f);
+
+            float newHeight = player.transform.position.y;
+
+            if(hit.collider != null)
+            {
+                newHeight = hit.point.y + 5.0f;
+            }
+
+            GameObject new_truck = (GameObject)Instantiate(truckF);
 			new_truck.GetComponent<DespawnScript> ().multiplayer = true;
 
-            new_truck.transform.position = new Vector3(player.transform.position.x - 25.0f - Random.Range(0.0f, 25.0f), player.transform.position.y + 10.0f + Random.Range(2.0f, 8.0f));
-            trucks_expected[0] += 3.5f;
+            new_truck.transform.position = new Vector3(randPos, newHeight);
+            trucks_expected[0] += 6.5f;
 
-            new_truck.GetComponentInChildren<Rigidbody2D>().AddForce(new Vector2(Random.Range(5000.0f, 10000.0f), -500.0f));
+            new_truck.GetComponentInChildren<Rigidbody2D>().AddForce(new Vector2(Random.Range(1500.0f, 3000.0f), Random.Range(-500.0f, 250.0f)));
         }
 
         //center- does the player have a truck under them?
@@ -103,25 +137,32 @@ public class ProceduralLevel : MonoBehaviour {
 			new_truck.GetComponent<DespawnScript> ().multiplayer = true;
 
             new_truck.transform.position = new Vector3(player.transform.position.x + Random.Range(-25.0f, 25.0f), player.transform.position.y + 20.0f + Random.Range(-5.0f, 5.0f));
-            trucks_expected[1] += 2.0f;
+            trucks_expected[1] += 4.0f;
 
-            new_truck.GetComponentInChildren<Rigidbody2D>().AddForce(new Vector2(Random.Range(2500.0f, 5000.0f), -500.0f));
+            new_truck.GetComponentInChildren<Rigidbody2D>().AddForce(new Vector2(Random.Range(1000.0f, 2500.0f), -500.0f));
         }
 
-        if (trucks_on_screen[2] < 2 && trucks_expected[2] < 2.0f)
+        if (trucks_on_screen[2] < 1 && trucks_expected[2] < 5.0f)
         {
-			GameObject new_truck = (GameObject)Instantiate(truckF);
+            //get height of floor at right
+            float randPos = player.transform.position.x + 25.0f + Random.Range(0.0f, 25.0f);
+
+            RaycastHit2D hit = Physics2D.Raycast(new Vector2(randPos, player.transform.position.y + 75.0f), -Vector2.up, 150.0f);
+
+            float newHeight = player.transform.position.y;
+
+            if (hit.collider != null)
+            {
+                newHeight = hit.point.y + 5.0f;
+            }
+
+            GameObject new_truck = (GameObject)Instantiate(truckF);
 			new_truck.GetComponent<DespawnScript> ().multiplayer = true;
 
-            float tempHeight = currentHeight;
-            while(tempHeight < player.transform.position.y - 10.0f)
-            {
-                tempHeight += 10.0f;
-            }
-            new_truck.transform.position = new Vector3(player.transform.position.x + 30.0f + Random.Range(0.0f, 25.0f), tempHeight + Random.Range(10.0f, 25.0f));
-            trucks_expected[2] += 2.5f;
+            new_truck.transform.position = new Vector3(randPos, newHeight);
+            trucks_expected[2] += 4.5f;
 
-            new_truck.GetComponentInChildren<Rigidbody2D>().AddForce(new Vector2(Random.Range(-2500.0f, -1000.0f), -500.0f));
+            new_truck.GetComponentInChildren<Rigidbody2D>().AddForce(new Vector2(Random.Range(-500.0f, 2500.0f), Random.Range(250.0f, -1000.0f)));
         }
     }
 
@@ -136,7 +177,7 @@ public class ProceduralLevel : MonoBehaviour {
         {
             float prevHeight = currentHeight;
             float testHeight = currentHeight;
-            testHeight += Random.Range(lowerBound, upperBound);
+            testHeight += Random.Range(lowerBound, upperBound) * floor.transform.lossyScale.x;
 
             heightDiff = testHeight - prevHeight;
 
@@ -147,7 +188,7 @@ public class ProceduralLevel : MonoBehaviour {
             while (Mathf.Abs(heightDiff - prevDiff) > 0.4f && mode != 6)
             {
                 testHeight = currentHeight;
-                testHeight += Random.Range(lowerBound, upperBound);
+                testHeight += Random.Range(lowerBound, upperBound) * floor.transform.lossyScale.x;
 
                 heightDiff = testHeight - prevHeight;
                 attempt++;
@@ -183,6 +224,17 @@ public class ProceduralLevel : MonoBehaviour {
 			new_floor.GetComponent<GameOverMenu> ().multiplayer = true;
 			new_floor.GetComponent<DespawnScript> ().multiplayer = true;
             new_floor.transform.Translate(start_x + (floor_width * floors_spawned), currentHeight, 0.0f);
+
+            Vector3 tempPos = new Vector3(new_floor.transform.position.x, new_floor.transform.position.y);
+
+            for(int i = 0; i < thickness; i++)
+            {
+                m_line[i].positionCount++;
+                m_line[i].SetPosition(curIndex, tempPos - new Vector3(0.0f, i * 0.35f));
+            }
+
+            curIndex++;
+
             new_floor.GetComponent<Renderer>().sortingOrder = -1;
             new_floor.transform.Rotate(0.0f, 0.0f, heightDiff * 33);
             if (mode == 6)
@@ -200,7 +252,7 @@ public class ProceduralLevel : MonoBehaviour {
         if (modeTime <= 0.0f)
         {
             modeTime = Random.Range(1.0f, 5.0f) * 1000;
-            int newMode = Random.Range(0, 5);
+            int newMode = Random.Range(2, 5);
 
             if (mode == 4)
             {
