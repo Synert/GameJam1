@@ -39,5 +39,9 @@ public class DontDestroy : MonoBehaviour {
         {
             Destroy(gameObject);
         }
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("TwitchMultiplayer"))
+        {
+            Destroy(gameObject);
+        }
     }
 }

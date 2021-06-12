@@ -49,11 +49,11 @@ public class CameraScript : MonoBehaviour {
 
 		//zoomAim *= onGround;
 
-        Debug.Log(curSize);
+        //Debug.Log(curSize);
         //Camera.main.orthographicSize += (zoomAim * Time.deltaTime) - (5 * Time.deltaTime);
 
         float dif = (zoomAim - curSize) * Time.deltaTime;
-        Debug.Log(dif);
+        //Debug.Log(dif);
 
         curSize += dif;
         Camera.main.orthographicSize += (curSize - Camera.main.orthographicSize) * Time.deltaTime;

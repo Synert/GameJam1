@@ -26,11 +26,11 @@ public class TimeManager : MonoBehaviour
             if (!isSlowMotion && cooldown > 0.0f)
             {
                 cooldown -= Time.unscaledDeltaTime;
-                Debug.Log("Cooldown decreasing");
+                //Debug.Log("Cooldown decreasing");
 
                 if (cooldown <= 0.0f)
                 {
-                    Debug.Log("Cooldown finished. Slowmo ready");
+                    //Debug.Log("Cooldown finished. Slowmo ready");
                 }
             }
 
@@ -44,7 +44,7 @@ public class TimeManager : MonoBehaviour
                 {
                     isSlowMotion = false;
                     cooldown = 10.0f;
-                    Debug.Log("MAX COOLDOWN");
+                    //Debug.Log("MAX COOLDOWN");
                 }
             }
 
@@ -59,11 +59,11 @@ public class TimeManager : MonoBehaviour
             Time.fixedDeltaTime = Time.timeScale * 0.02f;
             abilityDuration = 4.0f;
             isSlowMotion = true;
-            Debug.Log("SLOWMOTION");
+            //Debug.Log("SLOWMOTION");
         }
         else
         {
-            Debug.Log("ON COOLDOWN");
+            //Debug.Log("ON COOLDOWN");
         }
     }
 
@@ -71,14 +71,14 @@ public class TimeManager : MonoBehaviour
     {
         if(isPaused)
         {
-            Debug.Log("Paused");
+            //Debug.Log("Paused");
             paused = true;
             oldTimeScale = Time.timeScale;
             Time.timeScale = 0.0f;
         }
         if(!isPaused)
         {
-            Debug.Log("Unpaused");
+            //Debug.Log("Unpaused");
             paused = false;
             Time.timeScale = oldTimeScale;
             Debug.Log(oldTimeScale);

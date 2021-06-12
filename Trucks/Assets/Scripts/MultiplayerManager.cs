@@ -22,64 +22,90 @@ public class MultiplayerManager : MonoBehaviour {
 	public Text ScoreP2;
 	public float points = 0;
 
-	void Awake() {
+	void Awake()
+	{
 		GameObject.DontDestroyOnLoad (this.gameObject);
 	}
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 		grab ();
 	}
 
 	public void grab () {
 		MultiplayerManager[] temp = GameObject.FindObjectsOfType<MultiplayerManager> ();
-		if (temp.Length != 1 && player1Score == 0) {
+
+		if (temp.Length != 1 && player1Score == 0)
+		{
 			destroy ();
 		}
 
 		player = GameObject.FindGameObjectWithTag ("Player");
-		foreach (GameObject obj in objToSpawn) {
-			if (obj != null) {
+		foreach (GameObject obj in objToSpawn) 
+		{
+			if (obj != null) 
+			{
 				abilities.Add (obj.GetComponent<AbilityData> ());
 			}
 		}
+
 		Image[] Images = GameObject.FindObjectsOfType<Image> ();
 		Text[] texts = GameObject.FindObjectsOfType<Text> ();
-		for (int a = 1; a < abilities.Count + 1; a++) {
-			for (int b = 0; b < Images.Length; b++) {
-				if (Images [b].transform.name == "Image" + a) {
+
+		for (int a = 1; a < abilities.Count + 1; a++)
+		{
+			for (int b = 0; b < Images.Length; b++)
+			{
+				if (Images [b].transform.name == "Image" + a)
+				{
 					abilities [a - 1].objImage = Images [b];
 					Images [b].sprite = abilities [a - 1].UISprite;
 				}
-				if (Images [b].transform.name == "Key" + a) {
+
+				if (Images [b].transform.name == "Key" + a)
+				{
 					abilities [a - 1].keyImage = Images [b];
 					Images [b].sprite = abilities [a - 1].keySprite;
 				}
 			}
-			for (int b = 0; b < texts.Length; b++) {
-				if (texts [b].transform.name == "Text" + a) {
+
+			for (int b = 0; b < texts.Length; b++)
+			{
+				if (texts [b].transform.name == "Text" + a)
+				{
 					abilities [a - 1].textVar = texts [b];
 				}
-				if (texts [b].transform.name == "Score") {
+
+				if (texts [b].transform.name == "Score")
+				{
 					Score = texts [b];
 				}
-				if (texts [b].transform.name == "ScoreP1") {
+
+				if (texts [b].transform.name == "ScoreP1")
+				{
 					ScoreP1 = texts [b];
 				}
-				if (texts [b].transform.name == "ScoreP2") {
+				
+				if (texts [b].transform.name == "ScoreP2")
+				{
 					ScoreP2 = texts [b];
 				}
 			}
 		}
 
-		if (ScoreP1 != null) {
+		if (ScoreP1 != null)
+		{
 			ScoreP1.text = "0";
 		}
-		if (ScoreP2 != null) {
+
+		if (ScoreP2 != null)
+		{
 			ScoreP2.text = "0";
 		}
 
-		if (player1End == true) {
+		if (player1End == true)
+		{
 			player2Start = true;
 		}
 	}
@@ -91,35 +117,43 @@ public class MultiplayerManager : MonoBehaviour {
 				ScoreP1.text = "Player 1: " + Mathf.FloorToInt (player1Score).ToString ();
 				ScoreP2.text = "Player 2: " + Mathf.FloorToInt (player2Score).ToString ();
 			}
-			if (player1 && !player1End) {
+
+			if (player1 && !player1End)
+			{
 				player1Score += Time.deltaTime;
-			} else if (player2 && player2Start) {
+			} 
+			else if (player2 && player2Start)
+			{
 				player2Score += Time.deltaTime;
 			}
-			if (Score != null) {
+
+			if (Score != null)
+			{
 				Score.text = "Points: " + points.ToString () + "\n" + "Delay: " + delay.ToString ();
 			}
-			for (int a = 0; a < abilities.Count; a++) {
+
+			for (int a = 0; a < abilities.Count; a++)
+			{
 				AbilityData data = abilities [a];
 				data.minusDeltaTime (Time.deltaTime);
-				if (Input.anyKey) {
-					if (data.activationKey != "") {
-						if (Input.GetKeyDown ((KeyCode)System.Enum.Parse (typeof(KeyCode), data.activationKey))) {
-							if (data.delay == 0) {
-								if (data.currentRefreshTime <= 0) {
-									if (data.pointCost <= points) {
-										data.activate (player.transform.position + new Vector3 (data.initialOffset, 0, 0) +
-										new Vector3 (Mathf.Abs (player.GetComponent<Rigidbody2D> ().velocity.x) * delay,
-											0, data.layer));
-										data.refresh ();
-										points += data.pointGain;
-										points -= data.pointCost;
-									}
-								}
-							} else {
-								delay = data.delay;
-							}
+
+				if (Input.anyKey && data.activationKey != "" && Input.GetKeyDown ((KeyCode)System.Enum.Parse (typeof(KeyCode), data.activationKey)))
+				{
+					if (data.delay == 0)
+					{
+						if (data.currentRefreshTime <= 0 && data.pointCost <= points)
+						{
+							data.activate (player.transform.position + new Vector3 (data.initialOffset, 0, 0) +
+							new Vector3 (Mathf.Abs (player.GetComponent<Rigidbody2D> ().velocity.x) * delay,
+								0, data.layer));
+							data.refresh ();
+							points += data.pointGain;
+							points -= data.pointCost;
 						}
+					}
+					else
+					{
+						delay = data.delay;
 					}
 				}
 			}
@@ -128,13 +162,15 @@ public class MultiplayerManager : MonoBehaviour {
 		}
 	}
 
-	public void resetAbilities() {
+	public void resetAbilities()
+	{
 		foreach (AbilityData ab in abilities) {
 			ab.refresh ();
 		}
 	}
 
-	public void destroy() {
+	public void destroy()
+	{
 		Destroy (this.gameObject);
 	}
 }

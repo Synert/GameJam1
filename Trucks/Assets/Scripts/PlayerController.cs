@@ -11,9 +11,9 @@ public class PlayerController : MonoBehaviour
     public float Acceleration = 20;
     public float jumpSpeed = 8;
     public float jumpDuration;
-	public bool isOnGround = false;
-	public float rotationSpeed = 1;
-	public bool rotateAroundObject = true;
+    public bool isOnGround = false;
+    public float rotationSpeed = 1;
+    public bool rotateAroundObject = true;
 
     public bool enableDoubleJump = true;
     public bool wallHitJump = true;
@@ -22,45 +22,37 @@ public class PlayerController : MonoBehaviour
     float jmpDuration;
 
     bool keyPressDown = false;
-    bool canJumpVariable = false; 
+    bool canJumpVariable = false;
 
-	Quaternion defaultRot = new Quaternion();
+    Quaternion defaultRot = new Quaternion();
 
     void Start()
     {
 
-		defaultRot = transform.rotation;
+        defaultRot = transform.rotation;
         rend = GetComponent<Renderer>();
 
     }
 
-	// Update is called once per frame
-	void Update ()
+    // Update is called once per frame
+    void Update()
     {
-        
+
         float horizontal = Input.GetAxis("Horizontal");
 
-        if(horizontal < -0.1f)
+        if (horizontal < -0.1f)
         {
-            if(GetComponent<Rigidbody2D>().velocity.x > -this.MaxSpeed)
+            if (GetComponent<Rigidbody2D>().velocity.x > -this.MaxSpeed)
             {
                 GetComponent<Rigidbody2D>().AddForce(new Vector2(-this.Acceleration, 0.0f));
             }
-            //else
-            //{
-            //    GetComponent<Rigidbody2D>().velocity = new Vector2(-this.MaxSpeed, GetComponent<Rigidbody2D>().velocity.y);
-            //}
         }
-        else if(horizontal > 0.1f)
+        else if (horizontal > 0.1f)
         {
             if (GetComponent<Rigidbody2D>().velocity.x < this.MaxSpeed)
             {
                 GetComponent<Rigidbody2D>().AddForce(new Vector2(this.Acceleration, 0.0f));
             }
-            //else
-            //{
-            //    GetComponent<Rigidbody2D>().velocity = new Vector2(this.MaxSpeed, GetComponent<Rigidbody2D>().velocity.y);
-            //}
         }
 
         isOnGround = onGround();
@@ -151,33 +143,37 @@ public class PlayerController : MonoBehaviour
 
         Vector2 searchVector = new Vector2(this.transform.position.x, lineStart.y - checkLength);
 
-		RaycastHit2D hit = Physics2D.Linecast(lineStart, searchVector);
+        RaycastHit2D hit = Physics2D.Linecast(lineStart, searchVector);
 
-		//deal with rotating the character to match the object it is standing on
+        //deal with rotating the character to match the object it is standing on
 
-		if (rotateAroundObject) {
-			if (hit) {
-				if (hit.transform.gameObject.layer == 13) {
-					if (transform.rotation.z != hit.transform.rotation.z) {
-						if (hit.transform.rotation.z > -0.3f && hit.transform.rotation.z < 0.3f) {
-							if (Mathf.Abs (transform.rotation.z - hit.transform.rotation.z) < 0.05f) {
-								transform.rotation = hit.transform.rotation;
-							} else {
-								Quaternion temp = transform.rotation;
-								temp.z = hit.transform.rotation.z / 4;
-								transform.rotation = temp;
-							}
-						}
-					}
-				}
-			} else {
-				Quaternion temp = transform.rotation;
-				temp.z += (0 - transform.rotation.z * Time.deltaTime) * rotationSpeed;
-				transform.rotation = temp;
-			}
-		}
+        if (rotateAroundObject)
+        {
+            if (hit)
+            {
+                if (hit.transform.gameObject.layer == 13 && transform.rotation.z != hit.transform.rotation.z && hit.transform.rotation.z > -0.3f && hit.transform.rotation.z < 0.3f)
+                {
+                    if (Mathf.Abs(transform.rotation.z - hit.transform.rotation.z) < 0.05f)
+                    {
+                        transform.rotation = hit.transform.rotation;
+                    }
+                    else
+                    {
+                        Quaternion temp = transform.rotation;
+                        temp.z = hit.transform.rotation.z / 4;
+                        transform.rotation = temp;
+                    }
+                }
+            }
+            else
+            {
+                Quaternion temp = transform.rotation;
+                temp.z += (0 - transform.rotation.z * Time.deltaTime) * rotationSpeed;
+                transform.rotation = temp;
+            }
+        }
 
-		return hit;
+        return hit;
     }
 
     private bool onLeftWall()
@@ -197,7 +193,7 @@ public class PlayerController : MonoBehaviour
 
     private bool onRightWall()
     {
-       
+
         float checkLength = 0.5f;
         float colliderThreshold = 0.01f;
 

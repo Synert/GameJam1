@@ -80,7 +80,8 @@ public class ProceduralLevel : MonoBehaviour {
             m_line[i].positionCount = 0;
             m_line[i].material = lineMaterial;
             Color temp = new Color(0.75f - i * 0.05f, 0.9f - i * 0.025f, 0.5f - i * 0.05f);
-            m_line[i].SetColors(temp, temp);
+            m_line[i].startColor = temp;
+            m_line[i].endColor = temp;
             m_line[i].widthMultiplier = 1f;
             m_line[i].textureMode = LineTextureMode.Tile;
         }
